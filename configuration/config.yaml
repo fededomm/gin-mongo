@@ -1,0 +1,9 @@
+log:
+  level: -1
+  enablejson: false
+config:
+  servicename: "rest-api-go"
+  database:
+    connectionstring: "mongodb://192.168.3.109:27017"
+  ginrouter:
+    router: "0.0.0.0:8085"
