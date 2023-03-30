@@ -6,9 +6,9 @@ import (
 
 type Ordini struct {
 	NumeroOrdine int                `json:"numeroOrdine" bson:"numeroOrdine", omitempty`
-	Oggetto      string             `json:"oggetto" bson:"oggetto", omitempty`
+	Oggetto      string             `json:"oggetto" bson:"oggetto"`
 	Data         primitive.DateTime `json:"data" bson:"data", omitempty`
-	Destinatario string             `json:"destinatario" bson:"destinatario", omitempty`
-	Mittente     string             `json:"mittente" bson:"mittente", omitempty`
-	Prezzo       float64            `json:"prezzo" bson:"prezzo", omitemty`
+	Destinatario string             `json:"destinatario" bson:"destinatario"`
+	Mittente     string             `json:"mittente" bson:"mittente"`
+	Prezzo       float64            `json:"prezzo" bson:"prezzo"`
 }

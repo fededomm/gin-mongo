@@ -21,6 +21,7 @@ func Init(host *configuration.RouterConf,
 		{
 			Gestionale.GET("", routes.GetOrdini)
 			Gestionale.POST("", routes.PostOrdini)
+			Gestionale.PUT(":numeroOrdine", routes.UpdateOrdine)
 		}
 	}
 	router.Run(host.Router) // NON DIMENTICARSI IL SERVE!!!!!
