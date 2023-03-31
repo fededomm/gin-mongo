@@ -15,7 +15,7 @@ func Init(host *configuration.RouterConf,
 	servicename string) {
 
 	docs.SwaggerInfo.BasePath = "/api/v1/"
-	docs.SwaggerInfo.Host = "localhost:8085"
+	docs.SwaggerInfo.Host = "192.168.3.109:8085"
 	docs.SwaggerInfo.Description = "Test API for Ordini"
 	docs.SwaggerInfo.Title = "Ordini API"
 	docs.SwaggerInfo.Version = "1.0"

@@ -28,5 +28,30 @@ paths:
           description: Internal Server Error
       summary: List All Ordini
       tags:
-      - Ordini GET ALL
+      - Ordini
+    post:
+      consumes:
+      - application/json
+      description: Crea un record nella Collection Ordini
+      parameters:
+      - description: Inserisci un Ordine
+        in: body
+        name: json
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Post one Ordine
+      tags:
+      - Ordini
 swagger: "2.0"

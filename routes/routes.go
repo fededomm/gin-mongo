@@ -19,11 +19,11 @@ type Routes struct {
 	DB *mongo.Client
 }
 
-//	GetAllOrdini
+// GetAllOrdini
 //
 //	@Summary		List All Ordini
 //	@Description	Ritorna tutti gli ordini contenuti nella Collection
-//	@Tags			Ordini GET ALL
+//	@Tags			Ordini
 //	@Produce		json
 //	@Success		200
 //	@Failure		400
@@ -50,7 +50,7 @@ func (r *Routes) GetOrdini(c *gin.Context) {
 		c.JSON(http.StatusAccepted, gin.H{"messaggio": "nessun record"})
 		return
 	}
-
+	log.Println(c.Request.Header)
 	log.Println(len(ordini))
 	c.JSON(http.StatusOK, ordini)
 }
@@ -77,7 +77,19 @@ func (r *Routes) GetSingleOrdine(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "trovato", "payload": ordini})
 }
 
-// POST ONE
+// CreateRecord
+//
+//	@Summary		Post one Ordine
+//	@Description	Crea un record nella Collection Ordini
+//	@Tags			Ordini
+//	@Accept			json
+//	@Produce		json
+//	@Param			json	body	string	true	"Inserisci un Ordine"
+//	@Success		200
+//	@Failure		400
+//	@Failure		404
+//	@Failure		500
+//	@Router			/gest [post]
 func (r *Routes) PostOrdini(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	ordini := new(models.Ordini)

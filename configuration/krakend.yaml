@@ -1,20 +1,33 @@
 "$schema": https://www.krakend.io/schema/v3.json
 version: 3
-timeout: "5s"
+timeout: 10s
 name: APIGateway
 port: 8090
+extra_config:
+  security/cors:
+    allow_origins:
+    - "*"
+    allow_methods:
+    - GET
+    - POST
+    allow_credentials: false
+    allow_headers:
+    - "*"
 endpoints:
-
-# REQUEST GET-ALL
-- endpoint: "/api/v1/gest" # ENDPOINT OF API GATEWAY
+- endpoint: "/gest"
+  input_headers:
+  - x-user
+  output_encoding: no-op
   extra_config:
     auth/validator:
+      operation_debug: true
       alg: RS256
-      jwk_url: "http://192.168.3.191:8080/realms/angular/protocol/openid-connect/certs" # JWK URL OF KEYCLOAK
+      jwk_url: http://192.168.3.191:8080/realms/angular/protocol/openid-connect/certs
       disable_jwk_security: true
+      propagate_claims:
+      - ["sub","x-user"]
   method: GET
   backend:
-  - url_pattern: "/api/v1/gest" # URL DELLA CHIAMATA DELL'APPLICAZIONE
+  - url_pattern: "/api/v1/gest"
     host:
     - http://192.168.3.109:8085
-    - http://127.0.0.1:8085

@@ -32,9 +32,47 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Ordini GET ALL"
+                    "Ordini"
                 ],
                 "summary": "List All Ordini",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "post": {
+                "description": "Crea un record nella Collection Ordini",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ordini"
+                ],
+                "summary": "Post one Ordine",
+                "parameters": [
+                    {
+                        "description": "Inserisci un Ordine",
+                        "name": "json",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"

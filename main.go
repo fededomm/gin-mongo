@@ -23,7 +23,7 @@ var banner []byte
 //	@license.name	Apache 2.0
 //	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host	127.0.0.1:8085
+//	@host	127.0.0.1:8085
 func main() {
 	cfg, err := ReadConfig()
 	if err != nil {
