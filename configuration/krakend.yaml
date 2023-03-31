@@ -10,7 +10,7 @@ endpoints:
   extra_config:
     auth/validator:
       alg: RS256
-      jwk_url: "" # JWK URL OF KEYCLOAK
+      jwk_url: "http://192.168.3.191:8080/realms/angular/protocol/openid-connect/certs" # JWK URL OF KEYCLOAK
       disable_jwk_security: true
   method: GET
   backend:

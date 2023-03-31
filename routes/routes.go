@@ -19,7 +19,17 @@ type Routes struct {
 	DB *mongo.Client
 }
 
-// GET ALL
+//	GetAllOrdini
+//
+//	@Summary		List All Ordini
+//	@Description	Ritorna tutti gli ordini contenuti nella Collection
+//	@Tags			Ordini GET ALL
+//	@Produce		json
+//	@Success		200
+//	@Failure		400
+//	@Failure		404
+//	@Failure		500
+//	@Router			/gest [get]
 func (r *Routes) GetOrdini(c *gin.Context) {
 
 	var ordini []models.Ordini
