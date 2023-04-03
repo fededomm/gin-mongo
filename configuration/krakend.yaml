@@ -15,8 +15,7 @@ extra_config:
     - "*"
 endpoints:
 - endpoint: "/gest"
-  input_headers:
-  - x-user
+  input_headers: [x-user]
   output_encoding: no-op
   extra_config:
     auth/validator:
