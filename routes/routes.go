@@ -36,8 +36,10 @@ func (r *Routes) GetOrdini(c *gin.Context) {
 	filter := bson.D{}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	OrdiniCollection := db.GetCollection(r.DB, "Ordini")
-	cursor, err := OrdiniCollection.Find(ctx, filter)
+
+	ordiniCollection := db.GetCollection(r.DB, "Ordini")
+
+	cursor, err := ordiniCollection.Find(ctx, filter)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"messaggio": err.Error()})
 		return
@@ -50,12 +52,23 @@ func (r *Routes) GetOrdini(c *gin.Context) {
 		c.JSON(http.StatusAccepted, gin.H{"messaggio": "nessun record"})
 		return
 	}
-	log.Println(c.Request.Header)
+
 	log.Println(len(ordini))
 	c.JSON(http.StatusOK, ordini)
 }
 
-// GET ONE
+// GET one Ordine
+//
+//	@Summary		GET one Ordine
+//	@Description	GET un record nella Collection Ordini
+//	@Tags			Ordini
+//	@Param			numeroOrdine	path	string	true	"Numero Ordine dell'Ordine"
+//	@Produce		json
+//	@Success		200
+//	@Failure		400
+//	@Failure		404
+//	@Failure		500
+//	@Router			/gest/{numeroOrdine} [get]
 func (r *Routes) GetSingleOrdine(c *gin.Context) {
 	var ordini models.Ordini
 	numOrdine := c.Param("numeroOrdine")
@@ -67,9 +80,10 @@ func (r *Routes) GetSingleOrdine(c *gin.Context) {
 	filter := bson.M{"numeroOrdine": numOrdinetoInt}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	OrdiniCollection := db.GetCollection(r.DB, "Ordini")
 
-	err := OrdiniCollection.FindOne(ctx, filter).Decode(&ordini)
+	ordiniCollection := db.GetCollection(r.DB, "Ordini")
+
+	err := ordiniCollection.FindOne(ctx, filter).Decode(&ordini)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
@@ -110,6 +124,8 @@ func (r *Routes) PostOrdini(c *gin.Context) {
 	}
 
 	ordiniCollection := db.GetCollection(r.DB, "Ordini")
+	//numeroOrdineCollection := db.GetCollection(r.DB, "NumeroOrdine")
+
 	result, err := ordiniCollection.InsertOne(ctx, postPayload)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
@@ -119,7 +135,19 @@ func (r *Routes) PostOrdini(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "Posted successfully", "data": result, "payload": postPayload})
 }
 
-// UPDATE ONE
+// Update Ordini
+//
+//	@Summary		Update one Ordine
+//	@Description	Esegui l'update di un Ordine
+//	@Tags			Ordini
+//	@Param			numeroOrdine	path	string	true	"Numero Ordine dell'Ordine"
+//	@Param			json	body	string	true	"Modifica un Ordine"
+//	@Produce		json
+//	@Success		200
+//	@Failure		400
+//	@Failure		404
+//	@Failure		500
+//	@Router			/gest/{numeroOrdine} [put]
 func (r *Routes) UpdateOrdine(c *gin.Context) {
 
 	var ordini models.Ordini
@@ -151,7 +179,6 @@ func (r *Routes) UpdateOrdine(c *gin.Context) {
 	ordiniCollection := db.GetCollection(r.DB, "Ordini")
 	// query
 	update, err := ordiniCollection.UpdateOne(ctx, filter, bson.M{"$set": ordiniUpdate})
-	//update, err := ordiniCollection.UpdateOne(ctx, filter, ordiniUpdate)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"messaggio": err.Error()})
 		return
@@ -163,7 +190,18 @@ func (r *Routes) UpdateOrdine(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "modificato con successo", "payload": ordiniUpdate})
 }
 
-// DELETE RECORD
+// Delete Ordini
+//
+//	@Summary		Delete one Ordine
+//	@Description	Esegui il delete di un Ordine
+//	@Tags			Ordini
+//	@Param			numeroOrdine	path	string	true	"Numero Ordine dell'Ordine"
+//	@Produce		json
+//	@Success		200
+//	@Failure		400
+//	@Failure		404
+//	@Failure		500
+//	@Router			/gest/{numeroOrdine} [delete]
 func (r *Routes) DeleteOrdine(c *gin.Context) {
 
 	numOrdine := c.Param("numeroOrdine")
@@ -176,7 +214,9 @@ func (r *Routes) DeleteOrdine(c *gin.Context) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+
 	OrdiniCollection := db.GetCollection(r.DB, "Ordini")
+
 	delete, err := OrdiniCollection.DeleteOne(ctx, filter)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"Messaggio": err.Error()})

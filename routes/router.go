@@ -3,6 +3,7 @@ package routes
 import (
 	"gin-mongo/configuration"
 	"gin-mongo/docs"
+	"gin-mongo/middleware"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -24,7 +25,8 @@ func Init(host *configuration.RouterConf,
 	var routes Routes
 	routes.DB = db
 	router := gin.Default()
-
+	router.Use(middleware.Middleware())
+	
 	v1 := router.Group("/api/v1")
 	{
 		Gestionale := v1.Group("/gest")
@@ -32,6 +34,7 @@ func Init(host *configuration.RouterConf,
 			Gestionale.GET("", routes.GetOrdini)
 			Gestionale.POST("", routes.PostOrdini)
 			Gestionale.PUT(":numeroOrdine", routes.UpdateOrdine)
+			Gestionale.DELETE(":numeroOrdine", routes.DeleteOrdine)
 		}
 	}
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

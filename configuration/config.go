@@ -7,3 +7,9 @@ type DbConfig struct {
 type RouterConf struct {
 	Router string `mapstructure:router`
 }
+
+type Observability struct {
+	ServiceName string `mapstructure:serviceName`
+	Endpoint    string `mapstructure:endpoint`
+	Enable      bool   `mapstructure:enable`
+}

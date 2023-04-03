@@ -88,6 +88,116 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/gest/{numeroOrdine}": {
+            "get": {
+                "description": "GET un record nella Collection Ordini",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ordini"
+                ],
+                "summary": "GET one Ordine",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Numero Ordine dell'Ordine",
+                        "name": "numeroOrdine",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "put": {
+                "description": "Esegui l'update di un Ordine",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ordini"
+                ],
+                "summary": "Update one Ordine",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Numero Ordine dell'Ordine",
+                        "name": "numeroOrdine",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Modifica un Ordine",
+                        "name": "json",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Esegui il delete di un Ordine",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ordini"
+                ],
+                "summary": "Delete one Ordine",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Numero Ordine dell'Ordine",
+                        "name": "numeroOrdine",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
         }
     }
 }`

@@ -1,10 +1,12 @@
 package main
 
 import (
+	"context"
 	_ "embed"
 	"fmt"
 	db "gin-mongo/database"
 	"gin-mongo/routes"
+	observability "gin-mongo/telemetry"
 	"log"
 )
 
@@ -23,7 +25,7 @@ var banner []byte
 //	@license.name	Apache 2.0
 //	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
 
-//	@host	127.0.0.1:8085
+// @host	127.0.0.1:8085
 func main() {
 	cfg, err := ReadConfig()
 	if err != nil {
@@ -31,6 +33,18 @@ func main() {
 	}
 	mongoClient := *db.ConnectDB(&cfg.App.Database)
 
+	if cfg.App.Observability.Enable {
+		log.Println("***OPENTELEMETRY ON***")
+		log.Println("Collector Endpoint: " + cfg.App.Observability.Endpoint)
+		trace, err := observability.InitTracerAuto(&cfg.App.Observability)
+		if err != nil {
+			log.Fatal("impossibile inizializzare il Tracer", err)
+		}
+		//routes.ServiceName = serviceName
+		defer trace(context.Background())
+	} else {
+		log.Println("***OPENTELEMETRY OFF***")
+	}
 	fmt.Println(string(banner))
 	log.Println("Connection String: " + cfg.App.Database.ConnectionString)
 	routes.Init(&cfg.App.Router, &mongoClient, cfg.App.ServiceName)

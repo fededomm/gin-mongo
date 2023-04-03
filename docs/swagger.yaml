@@ -54,4 +54,77 @@ paths:
       summary: Post one Ordine
       tags:
       - Ordini
+  /gest/{numeroOrdine}:
+    delete:
+      description: Esegui il delete di un Ordine
+      parameters:
+      - description: Numero Ordine dell'Ordine
+        in: path
+        name: numeroOrdine
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Delete one Ordine
+      tags:
+      - Ordini
+    get:
+      description: GET un record nella Collection Ordini
+      parameters:
+      - description: Numero Ordine dell'Ordine
+        in: path
+        name: numeroOrdine
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: GET one Ordine
+      tags:
+      - Ordini
+    put:
+      description: Esegui l'update di un Ordine
+      parameters:
+      - description: Numero Ordine dell'Ordine
+        in: path
+        name: numeroOrdine
+        required: true
+        type: string
+      - description: Modifica un Ordine
+        in: body
+        name: json
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Update one Ordine
+      tags:
+      - Ordini
 swagger: "2.0"
