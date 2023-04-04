@@ -13,6 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type Routes struct {
@@ -89,6 +90,7 @@ func (r *Routes) GetSingleOrdine(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "trovato", "payload": ordini})
+
 }
 
 // CreateRecord
@@ -113,9 +115,13 @@ func (r *Routes) PostOrdini(c *gin.Context) {
 		log.Println(err.Error())
 		return
 	}
+	numeroOrdine, rerr := r.getNextSeq("ordineId", c)
+	if rerr != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"ERROR": rerr.Error()})
+	}
 
 	postPayload := models.Ordini{
-		NumeroOrdine: ordini.NumeroOrdine,
+		NumeroOrdine: numeroOrdine.Seq,
 		Oggetto:      ordini.Oggetto,
 		Data:         primitive.NewDateTimeFromTime(time.Now()),
 		Destinatario: ordini.Destinatario,
@@ -225,4 +231,33 @@ func (r *Routes) DeleteOrdine(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Nessun ordine trovato"})
 	}
 	c.JSON(http.StatusOK, gin.H{"Messaggio": "Ordine eliminato con successo"})
+}
+
+func (r *Routes) getNextSeq(name string, c *gin.Context) (*models.Counter, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	counterCollection := db.GetCollection(r.DB, "counter")
+	filter := bson.M{"_id": name}
+	replace := bson.M{"$inc": bson.M{"seq": 1}}
+
+	upsert := true
+	Before := options.Before
+	opt := options.FindOneAndUpdateOptions{
+		ReturnDocument: &Before,
+		Upsert:         &upsert,
+	}
+
+	result := counterCollection.FindOneAndUpdate(
+		ctx, filter, replace, &opt,
+	)
+	if result.Err() != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"ERROR": result.Err().Error()})
+		return nil, result.Err()
+	} else {
+		var counter models.Counter
+		counter.Id = name
+		res := result.Decode(&counter)
+		return &counter, res
+	}
 }
