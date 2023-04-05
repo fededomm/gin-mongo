@@ -14,12 +14,13 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.opentelemetry.io/otel"
 )
 
 type Routes struct {
 	DB *mongo.Client
 }
-
+var tracer = otel.Tracer("Gin-Mongo")
 // GetAllOrdini
 //
 //	@Summary		List All Ordini
@@ -32,7 +33,8 @@ type Routes struct {
 //	@Failure		500
 //	@Router			/gest [get]
 func (r *Routes) GetOrdini(c *gin.Context) {
-
+	_, span := tracer.Start(c, "Get-All")	
+	defer span.End()
 	var ordini []models.Ordini
 	filter := bson.D{}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -53,7 +55,6 @@ func (r *Routes) GetOrdini(c *gin.Context) {
 		c.JSON(http.StatusAccepted, gin.H{"messaggio": "nessun record"})
 		return
 	}
-
 	log.Println(len(ordini))
 	c.JSON(http.StatusOK, ordini)
 }
@@ -71,6 +72,7 @@ func (r *Routes) GetOrdini(c *gin.Context) {
 //	@Failure		500
 //	@Router			/gest/{numeroOrdine} [get]
 func (r *Routes) GetSingleOrdine(c *gin.Context) {
+
 	var ordini models.Ordini
 	numOrdine := c.Param("numeroOrdine")
 	numOrdinetoInt, rerr := strconv.Atoi(numOrdine)
@@ -239,6 +241,7 @@ func (r *Routes) getNextSeq(name string, c *gin.Context) (*models.Counter, error
 
 	counterCollection := db.GetCollection(r.DB, "counter")
 	filter := bson.M{"_id": name}
+	// EVITARE LA CONCURRENCY SENZA MAI SPECIFICARE IL VALORE
 	replace := bson.M{"$inc": bson.M{"seq": 1}}
 
 	upsert := true

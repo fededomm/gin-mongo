@@ -6,7 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+
+
 func Middleware() gin.HandlerFunc {
+
 	return func(c *gin.Context) {
 		log.Println("Response Headers: ")
 		log.Println(c.Request.Header)

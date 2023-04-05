@@ -13,7 +13,8 @@ import (
 
 func Init(host *configuration.RouterConf,
 	db *mongo.Client,
-	servicename string) {
+	servicename string,
+) {
 
 	docs.SwaggerInfo.BasePath = "/api/v1/"
 	docs.SwaggerInfo.Host = "192.168.3.109:8085"
@@ -26,7 +27,7 @@ func Init(host *configuration.RouterConf,
 	routes.DB = db
 	router := gin.Default()
 	router.Use(middleware.Middleware())
-	
+
 	v1 := router.Group("/api/v1")
 	{
 		Gestionale := v1.Group("/gest")
