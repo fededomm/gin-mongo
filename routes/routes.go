@@ -21,7 +21,9 @@ type Routes struct {
 	DB *mongo.Client
 }
 
-var tracer = otel.Tracer("Gin-Mongo")
+func HealthCheck(c *gin.Context) {
+	c.JSON(200, gin.H{"STATO": "ATTIVO"})
+}
 
 // GetAllOrdini
 //
@@ -36,11 +38,12 @@ var tracer = otel.Tracer("Gin-Mongo")
 //	@Router			/gest [get]
 func (r *Routes) GetOrdini(c *gin.Context) {
 	var ordini []models.Ordini
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	var tracer = otel.Tracer("Get-Tracer")
+	ctx := context.Background()
 	_, span := tracer.Start(ctx, "Get-All")
-	defer cancel()
+	//defer cancel()
 	defer span.End()
-	
+
 	filter := bson.D{}
 	ordiniCollection := db.GetCollection(r.DB, "Ordini")
 
@@ -57,7 +60,6 @@ func (r *Routes) GetOrdini(c *gin.Context) {
 		c.JSON(http.StatusAccepted, gin.H{"messaggio": "nessun record"})
 		return
 	}
-	log.Println(len(ordini))
 	c.JSON(http.StatusOK, ordini)
 }
 

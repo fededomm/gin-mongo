@@ -10,9 +10,13 @@ extra_config:
     allow_methods:
     - GET
     - POST
+    - PUT
+    - DELETE
     allow_credentials: false
     allow_headers:
     - "*"
+
+    
 endpoints:
 - endpoint: "/gest"
   input_headers: [x-user]
@@ -45,5 +49,39 @@ endpoints:
   method: POST
   backend:
   - url_pattern: "/api/v1/gest"
+    host:
+    - http://192.168.3.109:8085
+
+- endpoint: "/gest/{numeroOrdine}"
+  input_headers: [x-user]
+  output_encoding: no-op
+  extra_config:
+    auth/validator:
+      operation_debug: true
+      alg: RS256
+      jwk_url: http://192.168.3.191:8080/realms/angular/protocol/openid-connect/certs
+      disable_jwk_security: true
+      propagate_claims:
+      - ["sub","x-user"]
+  method: PUT
+  backend:
+  - url_pattern: "/api/v1/gest/{numeroOrdine}"
+    host:
+    - http://192.168.3.109:8085
+
+- endpoint: "/gest/{numeroOrdine}"
+  input_headers: [x-user]
+  output_encoding: no-op
+  extra_config:
+    auth/validator:
+      operation_debug: true
+      alg: RS256
+      jwk_url: http://192.168.3.191:8080/realms/angular/protocol/openid-connect/certs
+      disable_jwk_security: true
+      propagate_claims:
+      - ["sub","x-user"]
+  method: DELETE
+  backend:
+  - url_pattern: "/api/v1/gest/{numeroOrdine}"
     host:
     - http://192.168.3.109:8085

@@ -36,7 +36,7 @@ func InitTracerAuto(cfg *AppConf.Observability) (func(context.Context) error, er
 
 	otel.SetTracerProvider(
 		sdktrace.NewTracerProvider(
-			sdktrace.WithSampler(sdktrace.AlwaysSample()),
+			//sdktrace.WithSampler(sdktrace.ParentBased()),
 			sdktrace.WithSpanProcessor(sdktrace.NewBatchSpanProcessor(exporter)),
 			sdktrace.WithSyncer(exporter),
 			sdktrace.WithResource(resources),

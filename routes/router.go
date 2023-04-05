@@ -38,6 +38,7 @@ func Init(host *configuration.RouterConf,
 			Gestionale.DELETE(":numeroOrdine", routes.DeleteOrdine)
 		}
 	}
+	router.GET("/health", HealthCheck)
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.Run(host.Router) // NON DIMENTICARSI IL SERVE!!!!!
 }
