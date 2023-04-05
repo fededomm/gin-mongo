@@ -14,6 +14,6 @@ FROM scratch
 
 WORKDIR /opt/sample-opentracer
 COPY --from=build /app/main /opt/gin-mongo/main
-EXPOSE 8080
+EXPOSE 8085
 
 CMD ["./main"]
