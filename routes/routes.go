@@ -20,7 +20,9 @@ import (
 type Routes struct {
 	DB *mongo.Client
 }
+
 var tracer = otel.Tracer("Gin-Mongo")
+
 // GetAllOrdini
 //
 //	@Summary		List All Ordini
@@ -33,13 +35,13 @@ var tracer = otel.Tracer("Gin-Mongo")
 //	@Failure		500
 //	@Router			/gest [get]
 func (r *Routes) GetOrdini(c *gin.Context) {
-	_, span := tracer.Start(c, "Get-All")	
-	defer span.End()
 	var ordini []models.Ordini
-	filter := bson.D{}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	_, span := tracer.Start(ctx, "Get-All")
 	defer cancel()
-
+	defer span.End()
+	
+	filter := bson.D{}
 	ordiniCollection := db.GetCollection(r.DB, "Ordini")
 
 	cursor, err := ordiniCollection.Find(ctx, filter)
