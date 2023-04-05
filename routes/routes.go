@@ -239,6 +239,7 @@ func (r *Routes) DeleteOrdine(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"Messaggio": "Ordine eliminato con successo"})
 }
 
+// FUNCTION TO GET THE NEXT SEQUENCE
 func (r *Routes) getNextSeq(name string, c *gin.Context) (*models.Counter, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
