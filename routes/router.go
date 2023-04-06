@@ -25,6 +25,7 @@ func Init(host *configuration.RouterConf,
 	var routes Routes
 	routes.DB = db
 	router := gin.Default()
+	router.LoadHTMLGlob("tmpl/*")
 	router.Use(middleware.Middleware())
 
 	v1 := router.Group("/api/v1")
@@ -37,7 +38,10 @@ func Init(host *configuration.RouterConf,
 			Gestionale.DELETE(":numeroOrdine", routes.DeleteOrdine)
 		}
 	}
-	router.GET("/health", HealthCheck)
+	router.GET("/health", func(c *gin.Context) {
+		c.HTML(200, "healthcheck.tmpl", gin.H{
+			"title": "SERVER UP"})
+	})
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.Run(host.Router) // NON DIMENTICARSI IL SERVE!!!!!
 }
