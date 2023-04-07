@@ -14,7 +14,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.opentelemetry.io/otel"
 )
 
 type Routes struct {
@@ -34,12 +33,7 @@ type Routes struct {
 //	@Router			/gest [get]
 func (r *Routes) GetOrdini(c *gin.Context) {
 	var ordini []models.Ordini
-	var tracer = otel.Tracer("Get-Tracer")
 	ctx := context.Background()
-	_, span := tracer.Start(ctx, "Get-All")
-	//defer cancel()
-	defer span.End()
-
 	filter := bson.D{}
 	ordiniCollection := db.GetCollection(r.DB, "Ordini")
 
@@ -235,14 +229,13 @@ func (r *Routes) DeleteOrdine(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"Messaggio": "Ordine eliminato con successo"})
 }
 
-
 func (r *Routes) getNextSeq(name string, c *gin.Context) (*models.Counter, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	counterCollection := db.GetCollection(r.DB, "counter")
 	filter := bson.M{"_id": name}
-	
+
 	// EVITARE LA CONCURRENCY SENZA MAI SPECIFICARE IL VALORE
 	replace := bson.M{"$inc": bson.M{"seq": 1}}
 

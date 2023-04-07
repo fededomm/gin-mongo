@@ -9,6 +9,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
 )
 
 func Init(host *configuration.RouterConf,
@@ -27,6 +28,7 @@ func Init(host *configuration.RouterConf,
 	router := gin.Default()
 	router.LoadHTMLGlob("tmpl/*")
 	router.Use(middleware.Middleware())
+	router.Use(otelgin.Middleware("gin-mongo-middle"))
 
 	v1 := router.Group("/api/v1")
 	{

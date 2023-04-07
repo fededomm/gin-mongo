@@ -40,7 +40,6 @@ func main() {
 		if err != nil {
 			log.Fatal("impossibile inizializzare il Tracer", err)
 		}
-		//routes.ServiceName = serviceName
 		defer trace(context.Background())
 	} else {
 		log.Println("***OPENTELEMETRY OFF***")

@@ -14,8 +14,9 @@ import (
 )
 
 func InitTracerAuto(cfg *AppConf.Observability) (func(context.Context) error, error) {
+	var ctx = context.Background()
 	exporter, err := otlptrace.New(
-		context.Background(),
+		ctx,
 		otlptracegrpc.NewClient(
 			otlptracegrpc.WithInsecure(),
 			otlptracegrpc.WithEndpoint(cfg.Endpoint),
@@ -25,7 +26,7 @@ func InitTracerAuto(cfg *AppConf.Observability) (func(context.Context) error, er
 		return nil, fmt.Errorf("failed to create gRPC connection to collector: %w", err)
 	}
 	resources, err := resource.New(
-		context.Background(),
+		ctx,
 		resource.WithAttributes(
 			attribute.String("service.name", cfg.ServiceName),
 		),
@@ -38,7 +39,6 @@ func InitTracerAuto(cfg *AppConf.Observability) (func(context.Context) error, er
 		sdktrace.NewTracerProvider(
 			sdktrace.WithSampler(sdktrace.AlwaysSample()),
 			sdktrace.WithSpanProcessor(sdktrace.NewBatchSpanProcessor(exporter)),
-			sdktrace.WithSyncer(exporter),
 			sdktrace.WithResource(resources),
 		),
 	)
