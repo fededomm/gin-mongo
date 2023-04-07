@@ -35,7 +35,7 @@ services:
       - ./configuration:/etc/krakend
     ports:
       - "8090:8090"
-    command: ["run", "-d", "-c", "/etc/krakend/krakend.yaml"]
+    command: ["run", "-d", "-c", "/etc/krakend/krakend.json"]
     networks:
       - keycloak-dev-network
 
