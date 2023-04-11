@@ -2,16 +2,15 @@ version: "3"
 services:
 
   # gin-mongo app
-
-  #gin-mongo:
-  #  image: gin-mongo:latest
-  #  restart: always
-  #  ports:
-  #    - 8085:8085
-  #  environment: 
-  #    - GIN_MONGO_FILE_PATH=/opt/gin-mongo/configuration/config.yaml
-  #  volumes:
-  #    - ./configuration/config.yaml:/opt/gin-mongo/configuration/config.yaml
+  gin-mongo:
+    image: gin-mongo:latest
+    restart: always
+    ports:
+      - 8085:8085
+    environment: 
+      - GIN_MONGO_FILE_PATH=/opt/configuration/config.yaml
+    volumes:
+      - ./configuration:/opt/configuration
 
   # Jaeger
   jaeger-all-in-one:

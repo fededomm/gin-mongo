@@ -4,6 +4,7 @@ import (
 	"gin-mongo/configuration"
 	"gin-mongo/docs"
 	"gin-mongo/middleware"
+	"html/template"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -14,7 +15,8 @@ import (
 
 func Init(host *configuration.RouterConf,
 	db *mongo.Client,
-	servicename string) {
+	servicename string,
+	t *template.Template) {
 
 	docs.SwaggerInfo.BasePath = "/api/v1/"
 	
@@ -27,7 +29,7 @@ func Init(host *configuration.RouterConf,
 	var routes Routes
 	routes.DB = db
 	router := gin.Default()
-	router.LoadHTMLGlob("tmpl/*")
+	router.SetHTMLTemplate(t)
 	router.Use(middleware.Middleware())
 	router.Use(otelgin.Middleware("gin-mongo-middle"))
 
