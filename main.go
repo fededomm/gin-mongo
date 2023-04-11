@@ -32,7 +32,7 @@ func main() {
 		log.Fatal(err)
 	}
 	mongoClient := *db.ConnectDB(&cfg.App.Database)
-
+	
 	if cfg.App.Observability.Enable {
 		log.Println("***OPENTELEMETRY ON***")
 		log.Println("Collector Endpoint: " + cfg.App.Observability.Endpoint)

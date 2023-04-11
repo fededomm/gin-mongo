@@ -1,6 +1,18 @@
 version: "3"
 services:
 
+  # gin-mongo app
+
+  gin-mongo:
+    image: gin-mongo:latest
+    restart: always
+    ports:
+      - 8085:8085
+    environment: 
+      - GIN_MONGO_FILE_PATH=/opt/gin-mongo/configuration/config.yaml
+    volumes:
+      - ./configuration/config.yaml:/opt/gin-mongo/configuration/config.yaml
+
   # Jaeger
   jaeger-all-in-one:
     image: jaegertracing/all-in-one:latest
@@ -23,7 +35,6 @@ services:
       - "8889:8889"   # Prometheus exporter metrics
       - "13133:13133" # health_check extension
       - "4317:4317"   # OTLP gRPC receiver
-      # - "55680:55680" # zpages extension
     depends_on:
       - jaeger-all-in-one
 

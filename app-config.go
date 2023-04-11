@@ -26,7 +26,7 @@ type LogConfig struct {
 type AppConfig struct {
 	Database      AppConf.DbConfig      `yaml:"database" mapstructure:"database" json:"database"`
 	Router        AppConf.RouterConf    `yaml:"router" mapstructure:"router" json:"router"`
-	Observability AppConf.Observability `yaml:"Observability" mapstructure:"Observability" json:"Observability"`
+	Observability AppConf.Observability `yaml:"observability" mapstructure:"observability" json:"observability"`
 	ServiceName   string                `yaml:"servicename" mapstructure:"servicename" json:"servicename"`
 }
 
@@ -44,8 +44,8 @@ var DefaultConfig = Config{
 		},
 		Observability: AppConf.Observability{
 			ServiceName: "gin-mongo",
-			Endpoint: "192.168.3.109:4317",
-			Enable:   true,
+			Endpoint:    "192.168.3.109:4317",
+			Enable:      true,
 		},
 	},
 }

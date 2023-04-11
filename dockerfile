@@ -7,13 +7,12 @@ COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -a -o main .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -o gin-mongo .
 
 ## Deploy
 FROM scratch
 
-WORKDIR /opt/sample-opentracer
-COPY --from=build /app/main /opt/gin-mongo/main
+COPY --from=build /app/gin-mongo /opt/gin-mongo
 EXPOSE 8085
 
-CMD ["./main"]
+CMD ["/opt/gin-mongo"]
