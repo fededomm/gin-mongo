@@ -1,4 +1,4 @@
-package main
+package assets
 
 import (
 	"html/template"
@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func loadTemplate() (*template.Template, error) {
+func LoadTemplate() (*template.Template, error) {
 	t := template.New("")
 	for name, file := range Assets.Files {
 		if file.IsDir() || !strings.HasSuffix(name, ".tmpl") {

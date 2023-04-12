@@ -1,4 +1,4 @@
-package main
+package assets
 
 import (
 	"time"
@@ -13,12 +13,12 @@ var Assets = assets.NewFileSystem(map[string][]string{"/": []string{"tmpl"}, "/t
 	"/": &assets.File{
 		Path:     "/",
 		FileMode: 0x800001ed,
-		Mtime:    time.Unix(1681217450, 1681217450892650222),
+		Mtime:    time.Unix(1681291201, 1681291201642942863),
 		Data:     nil,
 	}, "/tmpl": &assets.File{
 		Path:     "/tmpl",
 		FileMode: 0x800001ed,
-		Mtime:    time.Unix(1681217605, 1681217605171838382),
+		Mtime:    time.Unix(1681228181, 1681228181459790753),
 		Data:     nil,
 	}, "/tmpl/healtcheck.tmpl": &assets.File{
 		Path:     "/tmpl/healtcheck.tmpl",

@@ -46,9 +46,5 @@ func main() {
 	}
 	fmt.Println(string(banner))
 	log.Println("Connection String: " + cfg.App.Database.ConnectionString)
-	t, err := loadTemplate()
-	if err != nil{
-		panic(err.Error())
-	}
-	routes.Init(&cfg.App.Router, &mongoClient, cfg.App.ServiceName, t)
+	routes.Init(&cfg.App.Router, &mongoClient, cfg.App.ServiceName)
 }

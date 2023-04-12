@@ -1,5 +1,5 @@
-// go:build (paperino)
-// +build paperino
+// go:build (pippo)
+// +build pippo
 
 package routes
 
@@ -7,6 +7,8 @@ import (
 	"gin-mongo/configuration"
 	"gin-mongo/docs"
 	"gin-mongo/middleware"
+	"gin-mongo/assets"
+	"html/template"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -30,7 +32,13 @@ func Init(host *configuration.RouterConf,
 	var routes Routes
 	routes.DB = db
 	router := gin.Default()
-	router.LoadHTMLGlob("tmpl/*")
+	
+	t, err := assets.LoadTemplate()
+	if err != nil {
+		panic(err.Error())
+	}
+
+	router.SetHTMLTemplate(t)
 	router.Use(middleware.Middleware())
 	router.Use(otelgin.Middleware("gin-mongo-middle"))
 
