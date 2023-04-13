@@ -6,9 +6,7 @@
     "port": 8090,
     "extra_config": {
       "security/cors": {
-        "allow_origins": [
-          "*"
-        ],
+        "allow_origins": ["*"],
         "allow_methods": [
           "GET",
           "POST",
@@ -16,17 +14,13 @@
           "DELETE"
         ],
         "allow_credentials": false,
-        "allow_headers": [
-          "*"
-        ]
+        "allow_headers": ["*"]
       }
     },
     "endpoints": [
       {
         "endpoint": "/gest",
-        "input_headers": [
-          "x-user"
-        ],
+        "input_headers": ["x-user"],
         "output_encoding": "no-op",
         "extra_config": {
           "auth/validator": {
@@ -65,10 +59,7 @@
             "jwk_url": "http://keycloak:8080/realms/angular/protocol/openid-connect/certs",
             "disable_jwk_security": true,
             "propagate_claims": [
-              [
-                "sub",
-                "x-user"
-              ]
+              ["sub","x-user"]
             ]
           }
         },
@@ -84,9 +75,7 @@
       },
       {
         "endpoint": "/gest/{numeroOrdine}",
-        "input_headers": [
-          "x-user"
-        ],
+        "input_headers": ["x-user"],
         "output_encoding": "no-op",
         "extra_config": {
           "auth/validator": {
@@ -95,10 +84,7 @@
             "jwk_url": "http://keycloak:8080/realms/angular/protocol/openid-connect/certs",
             "disable_jwk_security": true,
             "propagate_claims": [
-              [
-                "sub",
-                "x-user"
-              ]
+              ["sub","x-user"]
             ]
           }
         },
@@ -114,9 +100,7 @@
       },
       {
         "endpoint": "/gest/{numeroOrdine}",
-        "input_headers": [
-          "x-user"
-        ],
+        "input_headers": ["x-user"],
         "output_encoding": "no-op",
         "extra_config": {
           "auth/validator": {
@@ -125,10 +109,7 @@
             "jwk_url": "http://keycloak:8080/realms/angular/protocol/openid-connect/certs",
             "disable_jwk_security": true,
             "propagate_claims": [
-              [
-                "sub",
-                "x-user"
-              ]
+              ["sub","x-user"]
             ]
           }
         },

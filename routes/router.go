@@ -1,6 +1,3 @@
-// go:build (paperino)
-// +build paperino
-
 package routes
 
 import (
