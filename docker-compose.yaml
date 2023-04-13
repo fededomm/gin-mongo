@@ -50,6 +50,24 @@ services:
     networks:
       - keycloak-dev-network
 
+  #KEYCLOAK
+  keycloak:
+    image: quay.io/keycloak/keycloak:20.0.1
+    command: start-dev
+    volumes:
+      - keycloak_data:/etc/keycloak/keycloak_data
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - 8080:8080
+    networks:
+      - keycloak-dev-network
+
+volumes:
+  keycloak_data:
+      driver: local
+
 networks:
   keycloak-dev-network:
     driver: bridge

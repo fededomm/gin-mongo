@@ -33,7 +33,8 @@ type Routes struct {
 //	@Router			/gest [get]
 func (r *Routes) GetOrdini(c *gin.Context) {
 	var ordini []models.Ordini
-	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(context.Background(), 5000*time.Millisecond)
+	defer cancel()
 	filter := bson.D{}
 	ordiniCollection := db.GetCollection(r.DB, "Ordini")
 

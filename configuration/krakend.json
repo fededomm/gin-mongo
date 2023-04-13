@@ -32,7 +32,7 @@
           "auth/validator": {
             "operation_debug": true,
             "alg": "RS256",
-            "jwk_url": "http://192.168.3.191:8080/realms/angular/protocol/openid-connect/certs",
+            "jwk_url": "http://keycloak:8080/realms/angular/protocol/openid-connect/certs",
             "disable_jwk_security": true,
             "propagate_claims": [
               [
@@ -47,7 +47,7 @@
           {
             "url_pattern": "/api/v1/gest",
             "host": [
-              "http://192.168.3.109:8085"
+              "http://192.168.3.103:8085"
             ]
           }
         ]
@@ -62,7 +62,7 @@
           "auth/validator": {
             "operation_debug": true,
             "alg": "RS256",
-            "jwk_url": "http://192.168.3.191:8080/realms/angular/protocol/openid-connect/certs",
+            "jwk_url": "http://keycloak:8080/realms/angular/protocol/openid-connect/certs",
             "disable_jwk_security": true,
             "propagate_claims": [
               [
@@ -77,7 +77,7 @@
           {
             "url_pattern": "/api/v1/gest",
             "host": [
-              "http://192.168.3.109:8085"
+              "http://192.168.3.103:8085"
             ]
           }
         ]
@@ -92,7 +92,7 @@
           "auth/validator": {
             "operation_debug": true,
             "alg": "RS256",
-            "jwk_url": "http://192.168.3.191:8080/realms/angular/protocol/openid-connect/certs",
+            "jwk_url": "http://keycloak:8080/realms/angular/protocol/openid-connect/certs",
             "disable_jwk_security": true,
             "propagate_claims": [
               [
@@ -107,7 +107,7 @@
           {
             "url_pattern": "/api/v1/gest/{numeroOrdine}",
             "host": [
-              "http://192.168.3.109:8085"
+              "http://192.168.3.103:8085"
             ]
           }
         ]
@@ -122,7 +122,7 @@
           "auth/validator": {
             "operation_debug": true,
             "alg": "RS256",
-            "jwk_url": "http://192.168.3.191:8080/realms/angular/protocol/openid-connect/certs",
+            "jwk_url": "http://keycloak:8080/realms/angular/protocol/openid-connect/certs",
             "disable_jwk_security": true,
             "propagate_claims": [
               [
@@ -137,7 +137,7 @@
           {
             "url_pattern": "/api/v1/gest/{numeroOrdine}",
             "host": [
-              "http://192.168.3.109:8085"
+              "http://192.168.3.103:8085"
             ]
           }
         ]
