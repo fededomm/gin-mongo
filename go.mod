@@ -3,6 +3,7 @@ module gin-mongo
 go 1.19
 
 require (
+	github.com/jessevdk/go-assets v0.0.0-20160921144138-4f4301a06e15
 	github.com/rs/zerolog v1.29.0
 	github.com/swaggo/swag v1.8.12
 	go.mongodb.org/mongo-driver v1.11.3
@@ -30,9 +31,6 @@ require (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.0 // indirect
-	github.com/jessevdk/go-assets v0.0.0-20160921144138-4f4301a06e15 // indirect
-	github.com/jessevdk/go-assets-builder v0.0.0-20130903091706-b8483521738f // indirect
-	github.com/jessevdk/go-flags v1.5.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
