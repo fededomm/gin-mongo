@@ -2,15 +2,15 @@ version: "3"
 services:
 
   # gin-mongo app
-  gin-mongo:
-    image: gin-mongo:latest
-    restart: always
-    ports:
-      - 8085:8085
-    environment: 
-      - GIN_MONGO_FILE_PATH=/opt/configuration/config.yaml
-    volumes:
-      - ./configuration:/opt/configuration
+  #gin-mongo:
+  #  image: gin-mongo:latest
+  #  restart: always
+  #  ports:
+  #    - 8085:8085
+  #  environment: 
+  #    - GIN_MONGO_FILE_PATH=/opt/configuration/config.yaml
+  #  volumes:
+  #    - ./configuration:/opt/configuration
 
   # Jaeger
   jaeger-all-in-one:
@@ -53,13 +53,13 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:20.0.1
     command: start-dev
-    volumes:
-      - keycloak_data:/etc/keycloak/keycloak_data
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
     ports:
       - 8080:8080
+    volumes:
+      - keycloak_data:/etc/keycloak/keycloak_data
     networks:
       - keycloak-dev-network
 
