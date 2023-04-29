@@ -58,7 +58,7 @@ require (
 )
 
 require (
-	github.com/GPA-Gruppo-Progetti-Avanzati-SRL/tpm-common v0.0.87
+	github.com/GPA-Gruppo-Progetti-Avanzati-SRL/tpm-common v0.0.94
 	github.com/gin-gonic/gin v1.9.0
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
