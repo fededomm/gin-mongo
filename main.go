@@ -36,7 +36,7 @@ func main() {
 	if cfg.App.Observability.Enable {
 		log.Println("***OPENTELEMETRY ON***")
 		log.Println("Collector Endpoint: " + cfg.App.Observability.Endpoint)
-		trace, err := observability.InitTracerAuto(&cfg.App.Observability)
+		trace, err := observability.InitTracer(&cfg.App.Observability)
 		if err != nil {
 			log.Fatal("impossibile inizializzare il Tracer", err)
 		}

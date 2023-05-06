@@ -13,7 +13,7 @@ import (
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 )
 
-func InitTracerAuto(cfg *AppConf.Observability) (func(context.Context) error, error) {
+func InitTracer(cfg *AppConf.Observability) (func(context.Context) error, error) {
 	var ctx = context.Background()
 	exporter, err := otlptrace.New(
 		ctx,
