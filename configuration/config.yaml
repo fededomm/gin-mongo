@@ -3,10 +3,10 @@ log:
   enablejson: false
 config:
   database:
-    connectionstring: "mongodb://localhost:27017"
+    connectionstring: "mongodb://192.168.3.103:27017"
   ginrouter:
     router: "0.0.0.0:8085"
   observability:
     serviceName: "gin-mongo"
-    endpoint: "192.168.3.109:4317"
+    endpoint: "192.168.3.103:4317"
     enable: false

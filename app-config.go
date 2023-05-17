@@ -37,7 +37,7 @@ var DefaultConfig = Config{
 	},
 	App: AppConfig{
 		Database: AppConf.DbConfig{
-			ConnectionString: "mongodb://root:example127.0.0.2:27017",
+			ConnectionString: "mongodb://127.0.0.2:27017",
 		},
 		Router: AppConf.RouterConf{
 			Router: "0.0.0.0:8085",
