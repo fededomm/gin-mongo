@@ -37,7 +37,7 @@ var DefaultConfig = Config{
 	},
 	App: AppConfig{
 		Database: AppConf.DbConfig{
-			ConnectionString: "mongodb://127.0.0.2:27017",
+			ConnectionString: "mongodb://root:example127.0.0.2:27017",
 		},
 		Router: AppConf.RouterConf{
 			Router: "0.0.0.0:8085",
@@ -45,7 +45,7 @@ var DefaultConfig = Config{
 		Observability: AppConf.Observability{
 			ServiceName: "gin-mongo",
 			Endpoint:    "192.168.3.109:4317",
-			Enable:      true,
+			Enable:      false,
 		},
 	},
 }
