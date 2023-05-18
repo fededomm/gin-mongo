@@ -241,15 +241,16 @@ func (r *Routes) getNextSeq(name string, c *gin.Context) (*models.Counter, error
 	replace := bson.M{"$inc": bson.M{"seq": 1}}
 
 	upsert := true
-	Before := options.Before
+	before := options.Before
 	opt := options.FindOneAndUpdateOptions{
-		ReturnDocument: &Before,
+		ReturnDocument: &before,
 		Upsert:         &upsert,
 	}
 
 	result := counterCollection.FindOneAndUpdate(
 		ctx, filter, replace, &opt,
 	)
+
 	if result.Err() != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"ERROR": result.Err().Error()})
 		return nil, result.Err()

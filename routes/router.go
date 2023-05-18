@@ -4,6 +4,7 @@ import (
 	"gin-mongo/configuration"
 	"gin-mongo/docs"
 	"gin-mongo/middleware"
+	database "gin-mongo/database"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -11,19 +12,20 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
 )
+
 func Init(host *configuration.RouterConf,
 	db *mongo.Client,
 	servicename string,
-	) {
+) {
 
 	docs.SwaggerInfo.BasePath = "/api/v1/"
-	
 	docs.SwaggerInfo.Host = "192.168.3.109:8085"
 	docs.SwaggerInfo.Description = "Test API for Ordini"
 	docs.SwaggerInfo.Title = "Ordini API"
 	docs.SwaggerInfo.Version = "1.0"
 	docs.SwaggerInfo.Schemes = []string{"http"}
 
+	database.InitCounterCollection(db)
 	var routes Routes
 	routes.DB = db
 	router := gin.Default()
