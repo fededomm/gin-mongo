@@ -2,7 +2,6 @@ package database
 
 import (
 	"context"
-	"fmt"
 	database "gin-mongo/configuration"
 	"log"
 
@@ -26,9 +25,7 @@ func ConnectDB(cfg *database.DbConfig) *mongo.Client {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Connected to mongoDB")
 	return client
-
 }
 
 func GetCollection(client *mongo.Client, collectionName string) *mongo.Collection {

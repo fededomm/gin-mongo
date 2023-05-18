@@ -6,3 +6,4 @@
 prove/prova.*
 
 gin-mongo
+__debug_bin

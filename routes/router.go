@@ -25,7 +25,11 @@ func Init(host *configuration.RouterConf,
 	docs.SwaggerInfo.Version = "1.0"
 	docs.SwaggerInfo.Schemes = []string{"http"}
 
-	database.InitCounterCollection(db)
+	err := database.InitCounterCollection(db)
+	if err != nil {
+		panic("IMPOSSIBILE CONNETTERSI A MONGODB")
+	}
+	
 	var routes Routes
 	routes.DB = db
 	router := gin.Default()

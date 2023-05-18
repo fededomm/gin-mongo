@@ -2,16 +2,18 @@ package database
 
 import (
 	"context"
-	"fmt"
 	"gin-mongo/models"
+	"log"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func InitCounterCollection(db *mongo.Client) {
+func InitCounterCollection(db *mongo.Client) error{
 
-	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 	counterCollection := GetCollection(db, "counter")
 	countDoc, err := counterCollection.CountDocuments(ctx, bson.M{})
 
@@ -23,7 +25,9 @@ func InitCounterCollection(db *mongo.Client) {
 	}
 
 	if err != nil {
-		fmt.Print("impossibile inizializzare la collection counter")
-		return
+		log.Print("impossibile inizializzare la collection counter")
+		log.Println("Nessuna connessione al database")
+		return err
 	}
+	return nil 
 }
