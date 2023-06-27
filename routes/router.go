@@ -42,6 +42,7 @@ func Init(host *configuration.RouterConf,
 		Gestionale := v1.Group("/gest")
 		{
 			Gestionale.GET("", routes.GetOrdini)
+			Gestionale.GET(":numeroOrdine", routes.GetSingleOrdine)
 			Gestionale.POST("", routes.PostOrdini)
 			Gestionale.PUT(":numeroOrdine", routes.UpdateOrdine)
 			Gestionale.DELETE(":numeroOrdine", routes.DeleteOrdine)

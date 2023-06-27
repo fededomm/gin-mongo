@@ -3,7 +3,7 @@ log:
   enablejson: false
 config:
   database:
-    connectionstring: "mongodb://192.168.3.103:27017"
+    connectionstring: "mongodb://192.168.3.31:27017"
   ginrouter:
     router: "0.0.0.0:8085"
   observability:

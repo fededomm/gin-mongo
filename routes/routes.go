@@ -127,7 +127,6 @@ func (r *Routes) PostOrdini(c *gin.Context) {
 	}
 
 	ordiniCollection := db.GetCollection(r.DB, "Ordini")
-	//numeroOrdineCollection := db.GetCollection(r.DB, "NumeroOrdine")
 
 	result, err := ordiniCollection.InsertOne(ctx, postPayload)
 	if err != nil {
