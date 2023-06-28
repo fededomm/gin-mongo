@@ -9,4 +9,4 @@ config:
   observability:
     serviceName: "gin-mongo"
     endpoint: "192.168.3.103:4317"
-    enable: false
+    enable: true

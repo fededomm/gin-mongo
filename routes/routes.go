@@ -37,7 +37,6 @@ func (r *Routes) GetOrdini(c *gin.Context) {
 	defer cancel()
 	filter := bson.D{}
 	ordiniCollection := db.GetCollection(r.DB, "Ordini")
-
 	cursor, err := ordiniCollection.Find(ctx, filter)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"messaggio": err.Error()})
