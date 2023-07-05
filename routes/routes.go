@@ -20,6 +20,7 @@ type Routes struct {
 	DB *mongo.Client
 }
 
+// Private
 func getNextSeq(name string, c *gin.Context, r *Routes) (*models.Counter, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -29,7 +30,6 @@ func getNextSeq(name string, c *gin.Context, r *Routes) (*models.Counter, error)
 
 	// EVITARE LA CONCURRENCY SENZA MAI SPECIFICARE IL VALORE
 	replace := bson.M{"$inc": bson.M{"seq": 1}}
-
 	upsert := true
 	before := options.Before
 	opt := options.FindOneAndUpdateOptions{
